@@ -10,41 +10,47 @@ $(document).ready(function(){
 
 
 var button = $('.buttonSearch');
+var source = $("#entry-template").html();
+var template = Handlebars.compile(source);
 
-  button.click(
-    function () {
+
+  button.click(function () {
+
+    // reset di pagina
+       $(".box-film").html("");
+
       var stringaRicerca = $('.inputRicerca').val()
+
       // controllo per evitare di inserire messaggi vuoti
       if (stringaRicerca !== "") {
 
-      // sostituisco gli spazi con +, cosi da agevolare la ricerca
-      stringaRicerca = stringaRicerca.replace(" ","+")
-      // console.log(stringaRicerca);
-
       $.ajax({
 
-          url:"https://api.themoviedb.org/3/movie/550?api_key=61de138c818862f9e6c98cd205b6816b",
+          url:"https://api.themoviedb.org/3/search/movie",
           method: "GET",
-          dataType: "json",
           data: {
                 api_key: "61de138c818862f9e6c98cd205b6816b",
-                query: stringaRicerca,
+                language: "it-IT",
+                query: stringaRicerca
             },
           success:function (data) {
-            for (var i = 0; i < data.length; i++) {
+            // console.log(data);
+            var movieList = data.results;
+            // console.log(movielist);
 
-              var source = $("#entry-template").html();
-              var template = Handlebars.compile(source);
+            for (var i = 0; i < movieList.length; i++) {
+              var movie = movieList[i];
               var context = {
-                    titolo: data.results[i].title,
-                    titoloOrig: data.results[i].original_title ,
-                    voto: data.results[i].vote_average,
-                    lingua: data.results[i].original_language
+                    titolo: movie.title,
+                    titoloOrig: movie.original_title ,
+                    voto: movie.vote_average,
+                    lingua: movie.original_language
                     };
-                var html = template(context);
-              source.append(html);
-
             }
+
+            var html = template(context);
+            $(".box-film").append(html);
+
           },
 
           error: function(richiesta, stato, errori){
@@ -56,10 +62,5 @@ var button = $('.buttonSearch');
       }
 
     );
-
-
-
-
-
 
 });
