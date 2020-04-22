@@ -46,10 +46,11 @@ var template = Handlebars.compile(source);
                     voto: movie.vote_average,
                     lingua: movie.original_language
                     };
+              var html = template(context);
+              $(".box-film").append(html);
             }
 
-            var html = template(context);
-            $(".box-film").append(html);
+
 
           },
 

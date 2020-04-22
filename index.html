@@ -10,7 +10,7 @@
 
     <div class="container">
 
-      <div class="navBox">
+      <div class="navBox flexPropClass">
         <div class="title">
           GROSSFLIX
         </div>
@@ -22,7 +22,7 @@
       </div>
 
 
-      <div class="box-film">
+      <div class="box-film flexPropClass">
 
       </div>
 
@@ -30,6 +30,9 @@
 
     <script id="entry-template" type="text/x-handlebars-template">
       <div class="box-film-ricerca">
+        <div class="locandina">
+          <img src="{{img}}" alt="">
+          </div>
                  <ul>
                      <li>Titolo: {{titolo}}</li>
                      <li>Titolo Originale: {{titoloOrig}}</li>
