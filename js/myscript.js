@@ -15,7 +15,7 @@ var template = Handlebars.compile(source);
 
   button.click(function () {
 
-    // reset di pagina
+      // reset di pagina
        $(".box-film").html("");
 
       var stringaRicerca = $('.inputRicerca').val()
@@ -23,8 +23,36 @@ var template = Handlebars.compile(source);
       // controllo per evitare di inserire messaggi vuoti
       if (stringaRicerca !== "") {
 
+      // var per memorizzare la scelta tra film e serie tv nel select in pagina
+      var selectedVal = $("#selector option:selected").text();
+      if (selectedVal = Serie) {
       $.ajax({
 
+          //  url API per ricerca type serie:
+          url:"https://api.themoviedb.org/3/search/tv",
+          method: "GET",
+          data: {
+                api_key: "61de138c818862f9e6c98cd205b6816b",
+                language: "it-IT",
+                query: stringaRicerca
+            },success:function (data) {
+              //  se valore selezionato nel select è di tipo serie allora:
+              var tvSeriesList = data.results;
+            //impostazioni sistema di rating
+              $(".myRating").starRating({
+                totalStars: 5,
+                starShape: 'rounded',
+                starSize: 40,
+                emptyColor: 'lightgray',
+                activeColor: 'crimson',
+                useGradient: false
+              });
+
+              generaLista(tvSeriesList);
+
+        }
+      )} else {
+          //  url API per ricerca type movie:
           url:"https://api.themoviedb.org/3/search/movie",
           method: "GET",
           data: {
@@ -33,44 +61,48 @@ var template = Handlebars.compile(source);
                 query: stringaRicerca
             },
           success:function (data) {
-            // console.log(data);
+
+            //  se valore selezionato nel select è di tipo movie allora:
             var movieList = data.results;
-            // console.log(movielist);
 
-            // for (var i = 0; i < listaOggetti.length; i++) {
-            //   var movie = listaOggetti[i];
+            generaLista(movieList);
 
-              // se tipo è movie
-              // allora var titoloGenerato = movie.title
-              // se tipo è tv
-              // var titoloGenerato = movie.name
-              //
-              // var context = {
-              //  titolo: movie.title,
-              //  titoloOriginale: movie.original_title,
-
-            for (var i = 0; i < movieList.length; i++) {
-              var movie = movieList[i];
-              var context = {
-                    titolo: movie.title,
-                    titoloOrig: movie.original_title ,
-                    voto: movie.vote_average,
-                    lingua: movie.original_language,
-                    locandina:movie.poster_path
-                    };
-              var html = template(context);
-              $(".box-film").append(html);
+            if (context.lingua = it) {
+              context.lingua = img/it.png;
+            } else if (context.lingua = es) {
+              context.lingua = img/es.png;
+            } else if (context.lingua = eng) {
+              context.lingua = img/gb.png;
+            } else if (context.lingua = pt) {
+              context.lingua = img/pt.png;
             }
-
-          },
-          error: function(richiesta, stato, errori){
-          console.log('La richiesta ha prodotto un errore: ', richiesta, stato, errori);
-          }
-      })
-
+        },
+        error: function(richiesta, stato, errori){
+        alert('La richiesta ha prodotto un errore: ', richiesta, stato, errori);
         }
+
       }
 
-    );
+// FUNZIONI GENERICHE
+function generaLista(listaOggetti) {
+  for (var i = 0; i < listaOggetti.length; i++) {
+    var listato = listaOggetti[i];
+    var context = {
+          titoloFilm: listato.title,
+          titoloOrigFilm: listato.original_title ,
+          name: listato.title,
+          titoloOrigSerie: listato.original_name",
+          voto: round(listato.vote_average / 2),
+          lingua: listato.original_language,
+          locandina:listato.poster_path
+          };
+    var html = template(context);
+    $(".box-film").append(html);
+  }
+};
 
+
+
+})
+}
 });

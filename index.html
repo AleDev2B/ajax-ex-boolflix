@@ -16,6 +16,10 @@
           GROSSFLIX
         </div>
         <div class="searchBox">
+          <select id="selector">
+            <option value="1">Film</option>
+            <option value="2">Serie</option>
+          </select>
           <input class="inputRicerca"type="text" name="" value="">
           <button class="buttonSearch" type="button" name="button">Cerca</button>
         </div>
@@ -34,17 +38,14 @@
           <img src="https://image.tmdb.org/t/p/w300//{{locandina}}" alt="">
           </div>
                  <ul>
-                     <li>Titolo: {{titolo}}</li>
-                     <li>Titolo Originale: {{titoloOrig}}</li>
-                     <li>Voto: {{voto}}</li>
-                      <div class="box">
-                      	<!-- stella piena -->
-                      	<i class="fas fa-star"></i>
-                      	<!-- stella vuota -->
-                      	<i class="far fa-star"></i>
-
-                      </div>
-                     <li>Lingua: {{lingua}}</li>
+                     <li>TitoloFilm: {{titoloFilm}}</li>
+                     <li>TitoloOriginale: {{titoloOrigFilm}}</li>
+                     <li>TitoloSerie: {{titoloSerie}}</li>
+                     <li>TitoloOriginale: {{titoloOrigSerie}}</li>
+                     <li>Voto:{{voto}}</li>
+                     <div> class="myRating" data-rating="{{voto}}">
+                     </div>
+                     <li> <img src="{{lingua}}" alt=""></li>
                  </ul>
              </div>
 
