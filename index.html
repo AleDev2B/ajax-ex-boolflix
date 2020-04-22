@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
     <link rel="stylesheet" href="css/style.css">
     <title>GrossFlix</title>
   </head>
@@ -23,20 +24,26 @@
 
 
       <div class="box-film flexPropClass">
-
-      </div>
+        </div>
 
     </div>
 
     <script id="entry-template" type="text/x-handlebars-template">
       <div class="box-film-ricerca">
         <div class="locandina">
-          <img src="{{img}}" alt="">
+          <img src="https://image.tmdb.org/t/p/w185//{{locandina}}" alt="">
           </div>
                  <ul>
                      <li>Titolo: {{titolo}}</li>
                      <li>Titolo Originale: {{titoloOrig}}</li>
                      <li>Voto: {{voto}}</li>
+                      <div class="box">
+                      	<!-- stella piena -->
+                      	<i class="fas fa-star"></i>
+                      	<!-- stella vuota -->
+                      	<i class="far fa-star"></i>
+
+                      </div>
                      <li>Lingua: {{lingua}}</li>
                  </ul>
              </div>
