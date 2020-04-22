@@ -2,21 +2,46 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  border: 1px solid grey;
  }
 
 ul{
   margin: 25px;
 }
 
+.container{
+    display: flex;
+}
+
+.navBox{
+  height: 60px;
+  padding: 20px 20px;
+  background: black;
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  line-height: 20px;
+      justify-content: space-between;
+}
+
+.title{
+  color: red;
+  font-size: 26px;
+  font-weight: bold;
+}
 
 .box-film{
   background-color: gray;
   border-radius: 6px;
   width: 95vw;
-  height: calc(100vh - 70px);
+  height: 100vh;
   overflow: auto;
+  margin: auto;
   display: flex;
-  flex-wrap: wrap;
+
 }
 
 }
