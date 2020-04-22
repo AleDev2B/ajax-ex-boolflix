@@ -1,6 +1,4 @@
 *{
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
   border: 1px solid grey;
  }
@@ -11,10 +9,11 @@ ul{
 
 .container{
     display: flex;
+    height: 100vh;
+    width: 100vw;
 }
 
 .navBox{
-  height: 60px;
   padding: 20px 20px;
   background: black;
   position: fixed;
@@ -22,9 +21,9 @@ ul{
   top: 0;
   left: 0;
   z-index: 10;
-  width: 100%;
+  width: 100vw;
   line-height: 20px;
-      justify-content: space-between;
+  justify-content: space-between;
 }
 
 .title{
@@ -37,11 +36,10 @@ ul{
   background-color: gray;
   border-radius: 6px;
   width: 95vw;
-  height: 100vh;
   overflow: auto;
-  margin: auto;
-  display: flex;
-
+  top: 54px;
+  left: 25px;
+  position: relative;
 }
 
 }
