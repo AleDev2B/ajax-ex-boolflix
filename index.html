@@ -31,20 +31,22 @@
     <script id="entry-template" type="text/x-handlebars-template">
       <div class="box-film-ricerca">
         <div class="locandina">
-          <img src="https://image.tmdb.org/t/p/w185//{{locandina}}" alt="">
+          <img src="https://image.tmdb.org/t/p/w300//{{locandina}}" alt="">
           </div>
                  <ul>
                      <li>Titolo: {{titolo}}</li>
                      <li>Titolo Originale: {{titoloOrig}}</li>
-                     <li>Voto: {{voto}}</li>
+                     <li>Voto: {{{voto}}}</li>
                      <li>Tipologia: {{tipo}}</li>
-                      <div class="box">
-                      	<!-- stella piena -->
-                      	<i class="fas fa-star"></i>
-                      	<!-- stella vuota -->
-                      	<i class="far fa-star"></i>
-                      </div>
-                     <li>Lingua: {{lingua}}</li>
+
+                    <div class="box">
+                    	<!-- stella piena -->
+                    	<i class="fas fa-star"></i>
+                    	<!-- stella vuota -->
+                    	<i class="far fa-star"></i>
+                    </div>
+
+                     <li>Lingua:{{{lingua}}}</li>
                  </ul>
              </div>
 

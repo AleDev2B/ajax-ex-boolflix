@@ -95,16 +95,51 @@ var template = Handlebars.compile(source);
             var context = {
                   titolo: title,
                   titoloOrig: originalTitle,
-                  voto: Math.ceil(movie.vote_average/2),
-                  lingua: movie.original_language,
-                  tipo: tipo
-                  // locandina:movie.poster_path
+                  voto: generaStelle(movie.vote_average),
+                  lingua: flagGenerator(movie.original_language),
+                  tipo: tipo,
+                  locandina:movie.poster_path
                   };
             var html = template(context);
             $(".box-film").append(html);
 
           }
         }
+
+        // funzione di output voto in stelline
+    function generaStelle(voto) {
+      // passo da voto base 10 a voto base 5
+      var votoBase5 = Math.ceil(voto/2);
+
+      var stars = "";
+
+      for (var i = 1; i <= 5; i++) {
+          if(i <= votoBase5){
+          // <!-- stella piena -->
+    			stars += '<i class="fas fa-star"></i>';
+        } else {
+          // <!-- stella vuota -->
+    			stars += '<i class="far fa-star"></i>';
+          // stars = stars + '<i class="far fa-star"></i>';
+        }
+      }
+      return stars;
+    }
+
+    // funzione di output bandierine
+ function flagGenerator(codiceLang) {
+   // lista imgs presenti in cartella img
+   var images =  ["it", "en","es","pt"];
+   var imgGenerata;
+
+   if(images.includes(codiceLang)){
+     imgGenerata = '<img src="img/' + codiceLang + '.png" alt="immagine" class="flags" >';
+     return imgGenerata;
+   }
+   return codiceLang;
+ }
+
+
 
       }
 
