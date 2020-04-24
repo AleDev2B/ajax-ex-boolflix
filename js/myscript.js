@@ -24,55 +24,12 @@ var template = Handlebars.compile(source);
       if (stringaRicerca !== "") {
 
 // RICHIAMO API PER I FILM
-      $.ajax({
+      ajaxGen ("https://api.themoviedb.org/3/search/movie", "film")
 
-          url:"https://api.themoviedb.org/3/search/movie",
-          method: "GET",
-          data: {
-                api_key: "61de138c818862f9e6c98cd205b6816b",
-                language: "it-IT",
-                query: stringaRicerca
-            },
-          success:function (data) {
-
-            var movieFilmList = data.results;
-
-            generaLista(movieFilmList, "film");
-
-          },
-          error: function(richiesta, stato, errori){
-          console.log('La richiesta ha prodotto un errore: ', richiesta, stato, errori);
-          }
-
-      })
-
-      // RICHIAMO API PER LE SERIE TV
-    $.ajax({
-
-        url:"https://api.themoviedb.org/3/search/tv",
-        method: "GET",
-        data: {
-              api_key: "61de138c818862f9e6c98cd205b6816b",
-              language: "it-IT",
-              query: stringaRicerca
-          },
-        success:function (data) {
-          // console.log(data);
-          var movieFilmList = data.results;
+// RICHIAMO API PER LE SERIE TV
+      ajaxGen ("https://api.themoviedb.org/3/search/tv", "serie")
 
 
-          generaLista (movieFilmList, "serie");
-            // se tipo è tv
-            // var titoloGenerato = movie.name
-            // var context = {
-            //  titolo: movie.title,
-            //  titoloOriginale: movie.original_title,
-
-        },
-        error: function(richiesta, stato, errori){
-        console.log('La richiesta ha prodotto un errore: ', richiesta, stato, errori);
-        }
-    })
 
         }
         // FUNZIONI GENERALISTE
@@ -138,6 +95,36 @@ var template = Handlebars.compile(source);
    }
    return codiceLang;
  }
+// funzione di generazione della chiamata ajax
+  function ajaxGen (url, tipo) {
+    $.ajax({
+
+        url:url,
+        method: "GET",
+        data: {
+              api_key: "61de138c818862f9e6c98cd205b6816b",
+              language: "it-IT",
+              query: stringaRicerca
+          },
+        success:function (data) {
+          // console.log(data);
+          var movieFilmList = data.results;
+
+
+          generaLista (movieFilmList, tipo);
+            // se tipo è tv
+            // var titoloGenerato = movie.name
+            // var context = {
+            //  titolo: movie.title,
+            //  titoloOriginale: movie.original_title,
+
+        },
+        error: function(richiesta, stato, errori){
+        console.log('La richiesta ha prodotto un errore: ', richiesta, stato, errori);
+        }
+    })
+
+  }
 
 
 
