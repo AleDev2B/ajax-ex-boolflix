@@ -5,6 +5,31 @@
   /* border: 1px solid grey; */
  }
 
+.active{
+  display:none;
+}
+
+ .marginUpDownClass {
+   margin: 20px 0px 20px;
+   border: 2px solid white;
+   height: 100%;
+ }
+
+ .displayNoneClass{
+   display: none;
+ }
+
+ i.fas,i.far{
+    display: none;
+ }
+ul{
+  margin: 40px 0px 10px;
+}
+ ul li{
+   list-style-type: none;
+   margin: 10px 0px 10px;
+ }
+
 .flexPropClass{
 display: flex;
 align-content: space-between;
@@ -47,9 +72,9 @@ justify-content: space-between;
 }
 
 .box-film-ricerca{
-  height: 75vh;
-  width: calc(100vw / 5);
-  margin: 10px 16px;
+  height: 449px;
+  width: 300px;
+  margin: 10px 16px 20px;
 }
 
 .flags {

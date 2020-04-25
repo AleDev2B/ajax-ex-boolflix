@@ -11,17 +11,15 @@
 
     <div class="container">
 
-      <div class="navBox flexPropClass">
-        <div class="title">
-          GROSSFLIX
-        </div>
-        <div class="searchBox">
-          <input class="inputRicerca"type="text" name="" value="">
-          <button class="buttonSearch" type="button" name="button">Cerca</button>
-        </div>
-
-      </div>
-
+      <header class="navBox flexPropClass">
+          <div class="title">
+            GROSSFLIX
+          </div>
+          <div class="searchBox">
+            <input class="inputRicerca"type="text" name="" value="" placeholder="Inserisci un titolo">
+            <button class="buttonSearch" type="button" name="button">Cerca</button>
+          </div>
+      </header>
 
       <div class="box-film flexPropClass">
         </div>
@@ -30,25 +28,21 @@
 
     <script id="entry-template" type="text/x-handlebars-template">
       <div class="box-film-ricerca">
-        <div class="locandina">
-          <img src="https://image.tmdb.org/t/p/w300//{{locandina}}" alt="">
-          </div>
-                 <ul>
-                     <li>Titolo: {{titolo}}</li>
-                     <li>Titolo Originale: {{titoloOrig}}</li>
-                     <li>Voto: {{{voto}}}</li>
-                     <li>Tipologia: {{tipo}}</li>
-
-                    <div class="box">
-                    	<!-- stella piena -->
-                    	<i class="fas fa-star"></i>
-                    	<!-- stella vuota -->
-                    	<i class="far fa-star"></i>
-                    </div>
-
-                     <li>Lingua:{{{lingua}}}</li>
-                 </ul>
+          <img class="marginUpDownClass flexPropClass" src="{{locandina}}" alt="locandina del film">
+          <ul class="displayNoneClass">
+              <li>Titolo: {{titolo}}</li>
+              <li>Titolo Originale: {{titoloOrig}}</li>
+              <li>Voto: {{{voto}}}</li>
+              <li>Tipologia: {{tipo}}</li>
+              <li>Lingua:{{{lingua}}}</li>
+             <div class="box">
+               <!-- stella piena -->
+               <i class="fas fa-star"></i>
+               <!-- stella vuota -->
+               <i class="far fa-star"></i>
              </div>
+          </ul>
+      </div>
 
     </script>
 

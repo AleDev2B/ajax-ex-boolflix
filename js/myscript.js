@@ -1,11 +1,9 @@
-// Milestone 2:
-// Trasformiamo il voto da 1 a 10 decimale in un numero intero da 1 a 5, così da permetterci di stampare a schermo un numero di stelle piene che vanno da 1 a 5, lasciando le restanti vuote (troviamo le icone in FontAwesome).
-// Arrotondiamo sempre per eccesso all’unità successiva, non gestiamo icone mezze piene (o mezze vuote :P)
-// Trasformiamo poi la stringa statica della lingua in una vera e propria bandiera della nazione corrispondente, gestendo il caso in cui non abbiamo la bandiera della nazione ritornata dall’API (le flag non ci sono in FontAwesome).
-//
-// Allarghiamo poi la ricerca anche alle serie tv. Con la stessa azione di ricerca dovremo prendere sia i film che corrispondono alla query, sia le serie tv, stando attenti ad avere alla fine dei valori simili (le serie e i film hanno campi nel JSON di risposta diversi, simili ma non sempre identici)
-// Qui un esempio di chiamata per le serie tv:
-// https://api.themoviedb.org/3/search/tv?api_key=e99307154c6dfb0b4750f6603256716d&language=it_IT&query=scrubs
+// Milestone 4:
+// Trasformiamo quello che abbiamo fatto fino ad ora in una vera e propria webapp, creando un layout completo simil-Netflix:
+// Un header che contiene logo e search bar
+// Dopo aver ricercato qualcosa nella searchbar, i risultati appaiono sotto forma di “card” in cui lo sfondo è rappresentato dall’immagine di copertina (consiglio la poster_path con w342)
+// Andando con il mouse sopra una card (on hover), appaiono le informazioni aggiuntive già prese nei punti precedenti più la overview
+
 
 $(document).ready(function(){
 
@@ -24,44 +22,95 @@ var template = Handlebars.compile(source);
       if (stringaRicerca !== "") {
 
 // RICHIAMO API PER I FILM
-      ajaxGen ("https://api.themoviedb.org/3/search/movie", "film")
+      ajaxRequest ("https://api.themoviedb.org/3/search/movie", "film")
 
 // RICHIAMO API PER LE SERIE TV
-      ajaxGen ("https://api.themoviedb.org/3/search/tv", "serie")
-
-
+      ajaxRequest ("https://api.themoviedb.org/3/search/tv", "serie")
 
         }
+
         // FUNZIONI GENERALISTE
 
-        function generaLista(movieFilmList, tipo) {
+        // funzione di generazione della chiamata ajax
+          function ajaxRequest (url, tipo) {
+            $.ajax({
 
-          for (var i = 0; i < movieFilmList.length; i++) {
+                url:url,
+                method: "GET",
+                data: {
+                      api_key: "61de138c818862f9e6c98cd205b6816b",
+                      language: "it-IT",
+                      query: stringaRicerca
+                  },
+                success:function (data) {
+                  // console.log(data);
+                  var movieFilmList = data.results;
 
-            var movie = movieFilmList[i];
-            var title,originalTitle;
 
-            if (tipo === "serie") {
-              title = movie.name;
-              originalTitle = movie.original_name;
-            } else if (tipo === "film") {
-              title = movie.title;
-              originalTitle = movie.original_title;
-            };
+                  generaLista (movieFilmList, tipo);
 
-            var context = {
-                  titolo: title,
-                  titoloOrig: originalTitle,
-                  voto: generaStelle(movie.vote_average),
-                  lingua: flagGenerator(movie.original_language),
-                  tipo: tipo,
-                  locandina:movie.poster_path
-                  };
-            var html = template(context);
-            $(".box-film").append(html);
-
+                },
+                error: function(richiesta, stato, errori){
+                console.log('La richiesta ha prodotto un errore: ', richiesta, stato, errori);
+                }
+            })
           }
-        }
+
+          function generaLista(movieFilmList, tipo) {
+
+            for (var i = 0; i < movieFilmList.length; i++) {
+
+              var movie = movieFilmList[i];
+              var title,originalTitle;
+
+              if (tipo === "serie") {
+                title = movie.name;
+                originalTitle = movie.original_name;
+              } else if (tipo === "film") {
+                title = movie.title;
+                originalTitle = movie.original_title;
+              };
+
+              // funzione di generazione locandina film
+              function genLocandina(imageUrl) {
+
+                var mem ;
+
+                if (movie.poster_path) {
+                  mem = 'https://image.tmdb.org/t/p/w300//' + movie.poster_path;
+                }
+                else if (!movie.poster_path) {
+                  mem = 'img/sfondo-grigio.png'
+                }
+                return mem;
+                }
+
+                $(".box-film-ricerca").on({
+                  mouseenter: function(){
+                    $(".marginUpDownClass",this).fadeOut(500);
+                    $(".displayNoneClass",this).show(350);
+                  }
+                })
+
+                $(".box-film-ricerca").on({
+                  mouseleave: function(){
+                $(".marginUpDownClass",this).fadeIn(500);
+                  $(".displayNoneClass",this).fadeOut(350);
+                }
+              })
+              var context = {
+                    titolo: title,
+                    titoloOrig: originalTitle,
+                    voto: generaStelle(movie.vote_average),
+                    lingua: flagGenerator(movie.original_language),
+                    tipo: tipo,
+                    locandina: genLocandina(movie.poster_path)
+                    };
+              var html = template(context);
+              $(".box-film").append(html);
+
+            }
+          }
 
         // funzione di output voto in stelline
     function generaStelle(voto) {
@@ -95,38 +144,6 @@ var template = Handlebars.compile(source);
    }
    return codiceLang;
  }
-// funzione di generazione della chiamata ajax
-  function ajaxGen (url, tipo) {
-    $.ajax({
-
-        url:url,
-        method: "GET",
-        data: {
-              api_key: "61de138c818862f9e6c98cd205b6816b",
-              language: "it-IT",
-              query: stringaRicerca
-          },
-        success:function (data) {
-          // console.log(data);
-          var movieFilmList = data.results;
-
-
-          generaLista (movieFilmList, tipo);
-            // se tipo è tv
-            // var titoloGenerato = movie.name
-            // var context = {
-            //  titolo: movie.title,
-            //  titoloOriginale: movie.original_title,
-
-        },
-        error: function(richiesta, stato, errori){
-        console.log('La richiesta ha prodotto un errore: ', richiesta, stato, errori);
-        }
-    })
-
-  }
-
-
 
       }
 
