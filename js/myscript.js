@@ -89,11 +89,7 @@ var template = Handlebars.compile(source);
                   mouseenter: function(){
                     $(".marginUpDownClass",this).fadeOut(500);
                     $(".displayNoneClass",this).show(350);
-                  }
-                })
-
-                $(".box-film-ricerca").on({
-                  mouseleave: function(){
+                  }, mouseleave: function(){
                 $(".marginUpDownClass",this).fadeIn(500);
                   $(".displayNoneClass",this).fadeOut(350);
                 }
@@ -104,7 +100,8 @@ var template = Handlebars.compile(source);
                     voto: generaStelle(movie.vote_average),
                     lingua: flagGenerator(movie.original_language),
                     tipo: tipo,
-                    locandina: genLocandina(movie.poster_path)
+                    locandina: genLocandina(movie.poster_path),
+                    descrizione: movie.overview,
                     };
               var html = template(context);
               $(".box-film").append(html);
@@ -122,7 +119,7 @@ var template = Handlebars.compile(source);
       for (var i = 1; i <= 5; i++) {
           if(i <= votoBase5){
           // <!-- stella piena -->
-    			stars += '<i class="fas fa-star"></i>';
+    			stars += '<i class="fas fa-star yellow"></i>';
         } else {
           // <!-- stella vuota -->
     			stars += '<i class="far fa-star"></i>';
