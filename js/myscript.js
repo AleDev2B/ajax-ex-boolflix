@@ -7,6 +7,18 @@
 
 $(document).ready(function(){
 
+  $(".box-film").on("mouseenter", ".box-film-ricerca", function() {
+    console.log(1);
+    $(".marginUpDownClass",this).fadeOut(500);
+    $(".displayNoneClass",this).show(350);
+  });
+
+  $(".box-film").on("mouseleave", ".box-film-ricerca", function() {
+    console.log(2);
+    $(".marginUpDownClass",this).fadeIn(500);
+    $(".displayNoneClass",this).fadeOut(350);
+  });
+
 var button = $('.buttonSearch');
 var source = $("#entry-template").html();
 var template = Handlebars.compile(source);
@@ -85,15 +97,8 @@ var template = Handlebars.compile(source);
                 return mem;
                 }
 
-                $(".box-film-ricerca").on({
-                  mouseenter: function(){
-                    $(".marginUpDownClass",this).fadeOut(500);
-                    $(".displayNoneClass",this).show(350);
-                  }, mouseleave: function(){
-                $(".marginUpDownClass",this).fadeIn(500);
-                  $(".displayNoneClass",this).fadeOut(350);
-                }
-              })
+
+
               var context = {
                     titolo: title,
                     titoloOrig: originalTitle,
